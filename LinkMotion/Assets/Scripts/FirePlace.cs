@@ -19,6 +19,7 @@ public class FirePlace : MonoBehaviour
         
     }
 
+    //Check the boundries of the fireplace to determine if a log is present
     public bool LogInFireplace(Vector3 position){
         if(position.x > _firePlaceMarkers[0].position.x && position.x < _firePlaceMarkers[1].position.x)
             if(position.z > _firePlaceMarkers[0].position.z && position.z < _firePlaceMarkers[1].position.z)
@@ -29,7 +30,7 @@ public class FirePlace : MonoBehaviour
     public void IncreaseSizeOfFire(Log log){
         _logList.Add(log);
         Debug.Log("IN FIRE");
-        int maxActiveParticles = _logList.Count > 5 ? 5 : _logList.Count;
+        int maxActiveParticles = _logList.Count > 5 ? 5 : _logList.Count; //Create a cap to prevent an index out of range error
         for(int i = 0; i < maxActiveParticles; i++){
             _fireParticles[i].SetActive(true);
         }
@@ -38,9 +39,9 @@ public class FirePlace : MonoBehaviour
     public void DecreaseSizeOfFire(Log log){
         _logList.Remove(log);
         foreach(GameObject fire in _fireParticles)
-            fire.SetActive(false);
+            fire.SetActive(false); //Needed to ensure the correct amount of fire particles are being shown
 
-        int maxActiveParticles = _logList.Count > 5 ? 5 : _logList.Count;
+        int maxActiveParticles = _logList.Count > 5 ? 5 : _logList.Count; //Create a cap to prevent an index out of range error
         for(int i = 0; i < maxActiveParticles; i++){
             _fireParticles[i].SetActive(true);
         }
